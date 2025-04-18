@@ -215,6 +215,18 @@
         color: var(--white);
       }
 
+      /* Success message */
+      .success-message {
+        display: none;
+        background-color: rgba(0, 128, 0, 0.2);
+        border: 1px solid rgba(0, 128, 0, 0.3);
+        color: #00cc00;
+        padding: 1rem;
+        border-radius: var(--border-radius);
+        margin-top: 1rem;
+        text-align: center;
+      }
+
       @media (max-width: 768px) {
         .logo {
           font-size: 2.8rem;
@@ -263,11 +275,10 @@
       <main>
         <div class="form-container">
           <h2 class="form-title">Junte-se à nossa comunidade</h2>
-          <form
-            id="contactForm"
-            action="https://formsubmit.co/54d43714bd9449dadf6c245fb2279148"
-            method="POST"
-          >
+          <div class="success-message" id="successMessage">
+            Mensagem enviada com sucesso!
+          </div>
+          <form id="contactForm">
             <div class="form-group">
               <label for="name">Nome completo</label>
               <input type="text" id="name" name="name" required />
@@ -296,17 +307,6 @@
             <button type="submit" class="btn btn-primary submit-btn">
               Enviar
             </button>
-            <input
-              type="hidden"
-              name="_subject"
-              value="Nova mensagem do site Be.Rich"
-            />
-            <input
-              type="hidden"
-              name="_next"
-              value="https://berich.com/obrigado"
-            />
-            <input type="hidden" name="_captcha" value="false" />
           </form>
         </div>
       </main>
@@ -344,21 +344,46 @@
         const form = document.getElementById("contactForm");
         const overlay = document.getElementById("invitationOverlay");
         const closeBtn = document.getElementById("closeInvitation");
-        const continueBtn = document.getElementById("continueBtn");
+        const successMessage = document.getElementById("successMessage");
 
         // Intercept form submission
         form.addEventListener("submit", function (e) {
           e.preventDefault(); // Prevent default form submission
 
-          // Show the invitation pass overlay
-          overlay.style.display = "flex";
+          // Collect form data
+          const formData = new FormData(form);
+
+          // Send form data to FormSubmit
+          fetch("https://formsubmit.co/54d43714bd9449dadf6c245fb2279148", {
+            method: "POST",
+            body: formData,
+            headers: {
+              Accept: "application/json",
+            },
+          })
+            .then((response) => {
+              // Show success message
+              successMessage.style.display = "block";
+
+              // Reset form
+              form.reset();
+
+              // Show the invitation pass overlay
+              overlay.style.display = "flex";
+
+              // Hide success message after 5 seconds
+              setTimeout(() => {
+                successMessage.style.display = "none";
+              }, 5000);
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+            });
         });
 
         // Close button handler
         closeBtn.addEventListener("click", function () {
           overlay.style.display = "none";
-          // Submit the form when closing the invitation
-          form.submit();
         });
       });
     </script>
