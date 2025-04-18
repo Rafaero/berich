@@ -330,7 +330,6 @@
           class="qr-code"
         />
         <p class="invitation-text">Faça parte de algo grande.</p>
-        <button class="btn btn-primary" id="continueBtn">Continuar</button>
       </div>
     </div>
 
@@ -359,12 +358,6 @@
         closeBtn.addEventListener("click", function () {
           overlay.style.display = "none";
           // Submit the form when closing the invitation
-          form.submit();
-        });
-
-        // Continue button handler
-        continueBtn.addEventListener("click", function () {
-          // Submit the form and let it redirect to thank you page
           form.submit();
         });
       });
