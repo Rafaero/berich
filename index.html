@@ -278,7 +278,7 @@
           <div class="success-message" id="successMessage">
             Mensagem enviada com sucesso!
           </div>
-          <form id="contactForm">
+          <form id="contactForm" action="https://formsubmit.co/54d43714bd9449dadf6c245fb2279148" method="POST">
             <div class="form-group">
               <label for="name">Nome completo</label>
               <input type="text" id="name" name="name" required />
@@ -304,6 +304,8 @@
                 placeholder="Compartilhe seus objetivos e como você imagina contribuir com a comunidade..."
               ></textarea>
             </div>
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_next" value="">
             <button type="submit" class="btn btn-primary submit-btn">
               Enviar
             </button>
@@ -349,36 +351,25 @@
         // Intercept form submission
         form.addEventListener("submit", function (e) {
           e.preventDefault(); // Prevent default form submission
-
-          // Collect form data
-          const formData = new FormData(form);
-
-          // Send form data to FormSubmit
-          fetch("https://formsubmit.co/54d43714bd9449dadf6c245fb2279148", {
-            method: "POST",
-            body: formData,
-            headers: {
-              Accept: "application/json",
-            },
-          })
-            .then((response) => {
-              // Show success message
-              successMessage.style.display = "block";
-
-              // Reset form
-              form.reset();
-
-              // Show the invitation pass overlay
-              overlay.style.display = "flex";
-
-              // Hide success message after 5 seconds
-              setTimeout(() => {
-                successMessage.style.display = "none";
-              }, 5000);
-            })
-            .catch((error) => {
-              console.error("Error:", error);
-            });
+          
+          // Show success message immediately
+          successMessage.style.display = "block";
+          
+          // Submit the form directly
+          form.submit();
+          
+          // Reset form
+          setTimeout(() => {
+            form.reset();
+          }, 500);
+          
+          // Show the invitation pass overlay
+          overlay.style.display = "flex";
+          
+          // Hide success message after 5 seconds
+          setTimeout(() => {
+            successMessage.style.display = "none";
+          }, 5000);
         });
 
         // Close button handler
