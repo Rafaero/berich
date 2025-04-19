@@ -316,25 +316,37 @@
     </div>
 
     <!-- Invitation Pass Overlay -->
-    <div class="overlay" id="invitationOverlay">
-      <div class="invitation-pass">
-        <button class="close-btn" id="closeInvitation">&times;</button>
-        <h2 class="invitation-title">
-          <span class="be">Be.</span><span class="rich">Rich</span>
-        </h2>
-        <p class="invitation-text">Obrigado por se conectar conosco!</p>
-        <p class="invitation-text">
-          Escaneie o QR Code abaixo para participar da nossa comunidade no
-          WhatsApp:
-        </p>
-        <img
-          src="assets/qrcode.jpeg"
-          alt="QR Code para WhatsApp"
-          class="qr-code"
-        />
-        <p class="invitation-text">Faça parte de algo grande.</p>
-      </div>
-    </div>
+    <div class="invitation-pass">
+  <button class="close-btn" id="closeInvitation">&times;</button>
+  <h2 class="invitation-title">
+    <span class="be">Be.</span><span class="rich">Rich</span>
+  </h2>
+  <p class="invitation-text">Obrigado por se conectar conosco!</p>
+  <p class="invitation-text">
+    Escaneie o QR Code abaixo ou clique no botão para entrar na comunidade no WhatsApp:
+  </p>
+  
+  <!-- QR code clicável -->
+  <a href="https://chat.whatsapp.com/FcaW7jztNcKJ6IwNyqyftH" target="_blank" rel="noopener noreferrer">
+    <img
+      src="assets/qrcode.jpeg"
+      alt="QR Code para WhatsApp"
+      class="qr-code"
+    />
+  </a>
+
+  <!-- Botão para mobile -->
+  <a
+    href="https://chat.whatsapp.com/FcaW7jztNcKJ6IwNyqyftH"
+    class="btn btn-primary"
+    style="margin-top: 1.5rem; text-decoration: none; display: inline-block;"
+  >
+    Entrar no grupo pelo celular
+  </a>
+
+  <p class="invitation-text" style="margin-top: 1.5rem;">Faça parte de algo grande.</p>
+</div>
+
 
     <footer>
       <div class="container">
