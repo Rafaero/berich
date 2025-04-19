@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Be.Rich - Comunidade premium de networking</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Reset CSS */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --dark-bg: #121212;
+        --dark-accent: #1e1e1e;
+        --gold: #ffd700;
+        --gold-hover: #e6c200;
+        --white: #ffffff;
+        --light-gray: #f5f5f5;
+        --gray: #888888;
+        --border-radius: 8px;
+        --transition: all 0.3s ease;
+      }
+      body {
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(135deg, #121212 0%, #1a1a1a 100%);
+        color: var(--white);
+        line-height: 1.6;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem 0;
+      }
+      header {
+        padding: 2rem 0;
+        text-align: center;
+      }
+      .logo {
+        font-size: 3.5rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        margin-bottom: 1.5rem;
+      }
+      .logo .be {
+        color: var(--white);
+      }
+      .logo .rich {
+        color: var(--gold);
+      }
+      .subtitle {
+        font-size: 1.2rem;
+        font-weight: 300;
+        color: var(--light-gray);
+        max-width: 600px;
+        margin: 0 auto 3rem;
+        opacity: 0.9;
+      }
+      main {
+        flex: 1;
+        padding: 2rem 0;
+      }
+      .form-container {
+        background-color: var(--dark-accent);
+        border-radius: var(--border-radius);
+        padding: 3rem;
+        max-width: 600px;
+        margin: 0 auto;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      }
+      .form-title {
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+        text-align: center;
+        font-weight: 500;
+      }
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        font-size: 0.9rem;
+      }
+      input,
+      textarea {
+        width: 100%;
+        padding: 0.8rem 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background-color: rgba(255, 255, 255, 0.05);
+        color: var(--white);
+        border-radius: var(--border-radius);
+        font-family: "Poppins", sans-serif;
+        transition: var(--transition);
+      }
+      input:focus,
+      textarea:focus {
+        outline: none;
+        border-color: var(--gold);
+        box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2);
+      }
+      textarea {
+        min-height: 120px;
+        resize: vertical;
+      }
+      .btn {
+        display: inline-block;
+        padding: 1rem 2rem;
+        background: transparent;
+        color: var(--white);
+        border: 2px solid var(--gold);
+        border-radius: var(--border-radius);
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        text-align: center;
+        text-decoration: none;
+        font-size: 1rem;
+      }
+      .btn-primary {
+        background-color: var(--gold);
+        color: var(--dark-bg);
+      }
+      .btn:hover {
+        background-color: var(--gold-hover);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+      }
+      .submit-btn {
+        width: 100%;
+        margin-top: 1rem;
+      }
+      footer {
+        padding: 2rem 0;
+        text-align: center;
+        color: var(--gray);
+        font-size: 0.9rem;
+        font-weight: 300;
+      }
+
+      /* Invitation Pass Overlay Styles */
+      .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 999;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .invitation-pass {
+        background-color: var(--dark-accent);
+        border-radius: var(--border-radius);
+        padding: 2.5rem;
+        max-width: 90%;
+        width: 400px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3),
+          0 0 25px rgba(255, 215, 0, 0.2);
+        text-align: center;
+        position: relative;
+      }
+
+      .invitation-title {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+        font-weight: 600;
+      }
+
+      .invitation-text {
+        margin-bottom: 1.5rem;
+        color: var(--light-gray);
+        font-size: 1rem;
+      }
+
+      .qr-code {
+        max-width: 250px;
+        width: 80%;
+        margin: 1.5rem auto;
+        border-radius: var(--border-radius);
+      }
+
+      .close-btn {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: none;
+        border: none;
+        color: var(--gray);
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: var(--transition);
+        width: auto;
+        padding: 0;
+        margin: 0;
+      }
+
+      .close-btn:hover {
+        color: var(--white);
+      }
+
+      /* Success message */
+      .success-message {
+        display: none;
+        background-color: rgba(0, 128, 0, 0.2);
+        border: 1px solid rgba(0, 128, 0, 0.3);
+        color: #00cc00;
+        padding: 1rem;
+        border-radius: var(--border-radius);
+        margin-top: 1rem;
+        text-align: center;
+      }
+
+      @media (max-width: 768px) {
+        .logo {
+          font-size: 2.8rem;
+        }
+        .subtitle {
+          font-size: 1rem;
+        }
+        .form-container {
+          padding: 2rem;
+        }
+        .invitation-pass {
+          padding: 2rem;
+        }
+      }
+      @media (max-width: 480px) {
+        .logo {
+          font-size: 2.5rem;
+        }
+        .container {
+          width: 95%;
+        }
+        .form-container {
+          padding: 1.5rem;
+        }
+        .invitation-pass {
+          padding: 1.5rem;
+        }
+        .btn {
+          padding: 0.8rem 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1 class="logo">
+          <span class="be">Be.</span><span class="rich">Rich</span>
+        </h1>
+        <p class="subtitle">
+          Conecte-se com mentes brilhantes e expanda seu potencial. Uma
+          comunidade exclusiva de networking que transforma relacionamentos em
+          oportunidades.
+        </p>
+      </header>
+      <main>
+        <div class="form-container">
+          <h2 class="form-title">Junte-se à nossa comunidade</h2>
+          <div class="success-message" id="successMessage">
+            Mensagem enviada com sucesso!
+          </div>
+          <form id="contactForm" action="https://formsubmit.co/54d43714bd9449dadf6c245fb2279148" method="POST">
+            <div class="form-group">
+              <label for="name">Nome completo</label>
+              <input type="text" id="name" name="name" required />
+            </div>
+            <div class="form-group">
+              <label for="whatsapp">WhatsApp / Telefone</label>
+              <input type="tel" id="whatsapp" name="whatsapp" required />
+            </div>
+            <div class="form-group">
+              <label for="linkedin">LinkedIn</label>
+              <input
+                type="url"
+                id="linkedin"
+                name="linkedin"
+                placeholder="https://linkedin.com/in/seu-perfil"
+              />
+            </div>
+            <div class="form-group">
+              <label for="message">Sua visão de mundo</label>
+              <textarea
+                id="message"
+                name="message"
+                placeholder="Compartilhe seus objetivos e como você imagina contribuir com a comunidade..."
+              ></textarea>
+            </div>
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_next" value="">
+            <input type="hidden" name="_ajax" value="true">
+            <button type="submit" class="btn btn-primary submit-btn">
+              Enviar
+            </button>
+          </form>
+        </div>
+      </main>
+    </div>
+
+    
+<!-- Invitation Pass Overlay -->
+<div class="overlay" id="invitationOverlay">
+  <div class="invitation-pass">
+    <button class="close-btn" id="closeInvitation">&times;</button>
+    <h2 class="invitation-title">
+      <span class="be">Be.</span><span class="rich">Rich</span>
+    </h2>
+    <p class="invitation-text">Obrigado por se conectar conosco!</p>
+    <p class="invitation-text">
+      Escaneie o QR Code abaixo ou clique no botão para entrar na comunidade no WhatsApp:
+    </p>
+
+    <!-- QR code clicável -->
+    <a href="https://chat.whatsapp.com/FcaW7jztNcKJ6IwNyqyftH" target="_blank" rel="noopener noreferrer">
+      <img
+        src="assets/qrcode.jpeg"
+        alt="QR Code para WhatsApp"
+        class="qr-code"
+      />
+    </a>
+
+    <!-- Botão para mobile -->
+    <a
+      href="https://chat.whatsapp.com/FcaW7jztNcKJ6IwNyqyftH"
+      class="btn btn-primary"
+      style="margin-top: 1.5rem; text-decoration: none; display: inline-block;"
+    >
+      Entrar no grupo pelo celular
+    </a>
+
+    <p class="invitation-text" style="margin-top: 1.5rem;">Faça parte de algo grande.</p>
+  </div>
+</div>
+
+
+<footer>
+      <div class="container">
+        <p>Be.Rich © 2025 — Todos os direitos reservados.</p>
+      </div>
+    </footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("contactForm");
+        const overlay = document.getElementById("invitationOverlay");
+        const closeBtn = document.getElementById("closeInvitation");
+        const successMessage = document.getElementById("successMessage");
+
+        // Intercept form submission
+        form.addEventListener("submit", function (e) {
+          e.preventDefault(); // Prevent default form submission
+          
+          // Create XMLHttpRequest object
+          const xhr = new XMLHttpRequest();
+          const formData = new FormData(form);
+          
+          // Configure the request
+          xhr.open("POST", form.action, true);
+          xhr.setRequestHeader("Accept", "application/json");
+          
+          // Define what happens on successful data submission
+          xhr.onload = function() {
+            if (xhr.status >= 200 && xhr.status < 300) {
+              // Show success message
+              successMessage.style.display = "block";
+              
+              // Reset form
+              form.reset();
+              
+              // Show the invitation pass overlay
+              overlay.style.display = "flex";
+              
+              // Hide success message after 5 seconds
+              setTimeout(() => {
+                successMessage.style.display = "none";
+              }, 5000);
+            } else {
+              console.error("Form submission failed");
+            }
+          };
+          
+          // Define what happens in case of error
+          xhr.onerror = function() {
+            console.error("Request failed");
+          };
+          
+          // Send the form data
+          xhr.send(formData);
+        });
+
+        // Close button handler
+        closeBtn.addEventListener("click", function () {
+          overlay.style.display = "none";
+        });
+      });
+    </script>
+  </body>
+</html>
