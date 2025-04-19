@@ -306,6 +306,7 @@
             </div>
             <input type="hidden" name="_captcha" value="false">
             <input type="hidden" name="_next" value="">
+            <input type="hidden" name="_ajax" value="true">
             <button type="submit" class="btn btn-primary submit-btn">
               Enviar
             </button>
@@ -352,24 +353,42 @@
         form.addEventListener("submit", function (e) {
           e.preventDefault(); // Prevent default form submission
           
-          // Show success message immediately
-          successMessage.style.display = "block";
+          // Create XMLHttpRequest object
+          const xhr = new XMLHttpRequest();
+          const formData = new FormData(form);
           
-          // Submit the form directly
-          form.submit();
+          // Configure the request
+          xhr.open("POST", form.action, true);
+          xhr.setRequestHeader("Accept", "application/json");
           
-          // Reset form
-          setTimeout(() => {
-            form.reset();
-          }, 500);
+          // Define what happens on successful data submission
+          xhr.onload = function() {
+            if (xhr.status >= 200 && xhr.status < 300) {
+              // Show success message
+              successMessage.style.display = "block";
+              
+              // Reset form
+              form.reset();
+              
+              // Show the invitation pass overlay
+              overlay.style.display = "flex";
+              
+              // Hide success message after 5 seconds
+              setTimeout(() => {
+                successMessage.style.display = "none";
+              }, 5000);
+            } else {
+              console.error("Form submission failed");
+            }
+          };
           
-          // Show the invitation pass overlay
-          overlay.style.display = "flex";
+          // Define what happens in case of error
+          xhr.onerror = function() {
+            console.error("Request failed");
+          };
           
-          // Hide success message after 5 seconds
-          setTimeout(() => {
-            successMessage.style.display = "none";
-          }, 5000);
+          // Send the form data
+          xhr.send(formData);
         });
 
         // Close button handler
